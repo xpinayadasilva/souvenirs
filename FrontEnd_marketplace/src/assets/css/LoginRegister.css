@@ -64,7 +64,7 @@ body {
    }
 
    .input-box input::placeholder{     
-    color: lightsteelblue;
+    color: lightslategrey;
    }
 
    .input-box .icon{     
@@ -89,24 +89,24 @@ body {
     margin: -15px 0 15px;
 }
 
-.remember-forgot label input{ 
+/* .remember-forgot label input{ 
     accent-color: lightgray;
     margin-right: 4px;
-}
+} */
 
-.remember-forgot a{ 
+/* .remember-forgot a{ 
     color: lightgray;
     text-decoration: none;    
-}
+} */
 
-.remember-forgot a:hover{     
+/* .remember-forgot a:hover{     
     text-decoration: underline;    
-}
+} */
 
 .wrapper button{     
     width: 100%;
     height: 45px;
-    background: sandybrown;
+    background:rgb(3, 50, 7);
     border: 1.5px solid black;
     outline: none; 
     border-radius: 10px;
@@ -114,11 +114,12 @@ body {
     cursor: pointer;
     font-size: 16px;
     color: black;
+    text-decoration: none;
     font-weight: 700;
 }
 
 .wrapper button:hover{     
-    background: gold;    
+    background:lightsalmon;    
 }
 
 .wrapper .register-link {
@@ -128,11 +129,144 @@ body {
 }
 
 .register-link p a {
-   color: white;
-   text-decoration: none;
+   color:rgb(10, 10, 163);
+   text-decoration: underline;
    font-weight: 600;
 }
 
 .register-link p a:hover {   
     text-decoration: underline;    
  }
+
+ .login-container {
+   display: flex;
+   columns: 2;
+  wdisplay: flex;
+  height: 100vh;x-width: 900px;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.login-left {
+ flex: 1; /* Ocupa el 33.33% del ancho */
+  justify-content:stretch;
+  align-items: center;
+  background:url('../imgs/main.jpg') no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+/* .login-image {
+  width: 100%;
+  max-width: 500px;
+  object-fit: cover;   
+} */
+.login-right {
+  flex: 2; /* Ocupa el 66.67% del ancho */  
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  padding: 20px;
+}
+
+.login-form {
+ width: 100%;
+  max-width: 500px;
+  background:rgb(233, 197, 91);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.login-form h1 {
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.input-group {
+ display: flex;
+  flex-direction: column;
+  gap: 0px;
+  width: 100%;
+  
+}
+
+.input-group label {  
+  margin-bottom: 0;
+  font-weight: 500;
+}
+
+.input-box {
+  position: relative;
+  width: 100%;
+  height: 50px;
+  background: white;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 10px;
+  border: 1.5px solid #ccc;
+}
+
+.input-box input {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  font-size: 16px;
+  color: gray;
+  padding: 20px 45px 20px 20px;
+}
+
+.input-box input::placeholder {
+  color: lightsteelblue;
+}
+
+.input-box .icon {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+}
+
+button {
+  width: 100%;
+  height: 45px;
+  background: sandybrown;
+  border: 1.5px solid black;
+  outline: none;
+  border-radius: 10px;
+  box-shadow: 0 0 10px black;
+  cursor: pointer;
+  font-size: 16px;
+  color: black;
+  font-weight: 700;
+  margin-top: 6vh;
+}
+
+button:hover {
+  background: sandybrown;
+}
+
+.text-message {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.register-link {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.register-link-text {
+  color: blue;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.register-link-text:hover {
+  text-decoration: underline;
+}

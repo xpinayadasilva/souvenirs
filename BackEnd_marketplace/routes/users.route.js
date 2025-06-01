@@ -1,6 +1,7 @@
 import { Router } from 'express';
 const router = Router();
 import pool from '../database/conexion.js';
+import bcrypt from 'bcryptjs';8
 
 // GET all users
 router.get('/', async (req, res) => {
@@ -10,12 +11,18 @@ router.get('/', async (req, res) => {
 
 // POST new user
 router.post('/', async (req, res) => {
-  const {  email, password } = req.body;
-  const result = await pool(
-    'INSERT INTO users ( email, password) VALUES ($1, $2) RETURNING *',
-    [ email, password]
-  );
-  res.status(201).json(result.rows[0]);
+  const { nombre, email, pais, telefono, direccion, password } = req.body;
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const result = await pool.query(
+      'INSERT INTO users (nombre, email, pais, telefono, direccion, password) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id, nombre, email',
+      [nombre, email, pais, telefono, direccion, hashedPassword]
+    );
+    res.status(201).json(result.rows[0]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Error al registrar el usuario' });
+  }
 });
 
 // PUT update user

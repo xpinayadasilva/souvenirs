@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import '../assets/css/LoginRegister.css';
 import { FaUser, FaLock } from "react-icons/fa";
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const URL_SERVER = 'http://localhost:5000';
 
 const LoginPage = () => {
-  const [isLogin, setIsLogin] = useState(true);
   const [form, setForm] = useState({ email: '', password: '' });
   const [message, setMessage] = useState('');
-  const [users, setUsers] = useState([]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -20,98 +19,66 @@ const LoginPage = () => {
     setMessage('');
 
     try {
-      if (isLogin) {
-        // Login
-        const res = await axios.post(`${URL_SERVER}/login`, {
-          email: form.email,
-          password: form.password,
-        });
-        setMessage(`Bienvenido, ${res.data.name || 'usuario'}`);
-      } else {
-        // Registro sin 'name'
-        const res = await axios.post(`${URL_SERVER}/users`, {
-          email: form.email,
-          password: form.password,
-        });
-        setMessage(`Usuario registrado con éxito`);
-        setForm({ email: '', password: '' });
-        setIsLogin(true); // Cambiar a modo login
-      }
+      const res = await axios.post(`${URL_SERVER}/login`, {
+        email: form.email,
+        password: form.password,
+      });
+      setMessage(`Bienvenido, ${res.data.name}`);
     } catch (error) {
       console.error(error);
       setMessage('Error: ' + (error.response?.data?.message || 'algo salió mal'));
     }
   };
 
-  const fetchUsers = async () => {
-    try {
-      const res = await axios.get(`${URL_SERVER}/users`);
-      setUsers(res.data);
-    } catch (error) {
-      console.error('Error al cargar usuarios:', error);
-    }
-  };
-
-  useEffect(() => {
-    fetchUsers();
-  }, []);
-
   return (
-    <div className='wrapper'>
-      <div className='form-box login'>
-        <form onSubmit={handleSubmit}>
-          <h1>{isLogin ? 'Iniciar Sesión' : 'Registrarse'}</h1>
+    <div className="login-container">
+      <div className="login-left">
+        {/* <img src="/assets/img/login-image.jpg" alt="Login" className="login-image" /> */}
+      </div>
 
-          <label htmlFor="email">Correo Electrónico <FaUser className='icon' /></label>
-          <div className='input-box'>
-            <input
-              type='email'
-              name='email'
-              id='email'
-              placeholder='Correo Electrónico'
-              value={form.email}
-              onChange={handleChange}
-              required
-            />
+      <div className="login-right">
+        <form onSubmit={handleSubmit} className="login-form">
+          <h1>Iniciar Sesión</h1>
+          <div className="input-group">
+                <span>Correo Electrónico <FaUser className="icon" /></span>
+                <div className="input-box">
+                    <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    placeholder="Correo Electrónico"
+                    value={form.email}
+                    onChange={handleChange}
+                    required
+                    />
+                </div>
           </div>
-
-          <label htmlFor="password">Contraseña <FaLock className='icon' /></label>
-          <div className='input-box'>
-            <input
-              type='password'
-              name='password'
-              id='password'
-              placeholder='Contraseña'
-              value={form.password}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <button type="submit">
-            {isLogin ? 'Iniciar Sesión' : 'Crear Cuenta'}
-          </button>
-
-          <div className="register-link">
-            <p>{isLogin ? '¿No tienes una cuenta?' : '¿Ya tienes una cuenta?'}
-              <button
-                type="button"
-                onClick={() => setIsLogin(!isLogin)}
-                style={{
-                  marginLeft: '10px',
-                  textDecoration: 'underline',
-                  color: 'blue',
-                  background: 'none',
-                  border: 'none',
-                  cursor: 'pointer'
-                }}
-              >
-                {isLogin ? 'Registrarse' : 'Iniciar sesión'}
-              </button>
-            </p>
-          </div>
+          <div className="input-group">
+                <span>Contraseña <FaLock className="icon" /></span>
+                <div className="input-box">
+                    <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    placeholder="Contraseña"
+                    value={form.password}
+                    onChange={handleChange}
+                    required
+                    />
+                </div>
+            </div>
+            
+          <button type="submit">Iniciar Sesión</button>
 
           {message && <p className="text-message">{message}</p>}
+          <div className="register-link">
+            <p>
+              ¿No tienes una cuenta?{' '}
+              <Link to="/register" className="register-link-text">
+                Crear cuenta
+              </Link>
+            </p>
+          </div>  
         </form>
       </div>
     </div>
