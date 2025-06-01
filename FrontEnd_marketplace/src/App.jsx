@@ -1,9 +1,8 @@
-import './App.css'
-import React from 'react';
 import LoginPage from './pages/login.jsx';
-import NotFound from './pages/notfound.jsx'
+import NotFound from './pages/NotFound.jsx'
 import Register from './pages/register.jsx';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import './App.css'
 
 function App() {
     return (

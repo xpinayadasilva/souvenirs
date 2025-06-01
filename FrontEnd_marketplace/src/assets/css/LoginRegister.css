@@ -178,7 +178,7 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 .login-form h1 {
-  font-size: 14px;
+  font-size: 36px;
   text-align: center;
   margin-bottom: 20px;
 }
@@ -206,7 +206,7 @@ body {
 */  margin: 5px 0; 
   border-radius: 10px;
   border: 2px solid lightgray;
-  font-size: small;
+  font-size: 16px;
 }
 
 .input-box input {
@@ -255,7 +255,7 @@ button:hover {
 .text-message {
   text-align: center;
   margin-top: 10px;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .register-link {

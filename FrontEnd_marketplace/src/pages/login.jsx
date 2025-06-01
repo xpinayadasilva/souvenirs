@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import '../assets/css/LoginRegister.css';
-import { FaUser, FaLock } from "react-icons/fa";
-import axios from 'axios';
+import { FaUser, FaLock } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import '../assets/css/LoginRegister.css';
 
-const URL_SERVER = 'http://localhost:5000';
+const URL_SERVER = 'http://localhost:5000/users';
 
 const LoginPage = () => {
   const [form, setForm] = useState({ email: '', password: '' });
@@ -19,14 +18,20 @@ const LoginPage = () => {
     setMessage('');
 
     try {
-      const res = await axios.post(`${URL_SERVER}/login`, {
-        email: form.email,
-        password: form.password,
-      });
-      setMessage(`Bienvenido, ${res.data.name}`);
+      const res = await fetch(URL_SERVER);
+      const users = await res.json();
+      const user = users.find(
+        (u) => u.email === form.email && u.password === form.password
+      );
+
+      if (user) {
+        setMessage(`Bienvenido, ${user.name}`);
+      } else {
+        setMessage('Correo o contraseña incorrectos');
+      }
     } catch (error) {
       console.error(error);
-      setMessage('Error: ' + (error.response?.data?.message || 'algo salió mal'));
+      setMessage('Error al conectar con el servidor');
     }
   };
 
@@ -40,45 +45,42 @@ const LoginPage = () => {
         <form onSubmit={handleSubmit} className="login-form">
           <h1>Iniciar Sesión</h1>
           <div className="input-group">
-                <span>Correo Electrónico <FaUser className="icon" /></span>
-                <div className="input-box">
-                    <input
-                    type="email"
-                    name="email"
-                    id="email"
-                    placeholder="Correo Electrónico"
-                    value={form.email}
-                    onChange={handleChange}
-                    required
-                    />
-                </div>
+            <span>Correo Electrónico <FaUser className="icon" /></span>
+            <div className="input-box">
+              <input
+                type="email"
+                name="email"
+                id="email"
+                placeholder="Correo Electrónico"
+                value={form.email}
+                onChange={handleChange}
+                required
+              />
+            </div>
           </div>
           <div className="input-group">
-                <span>Contraseña <FaLock className="icon" /></span>
-                <div className="input-box">
-                    <input
-                    type="password"
-                    name="password"
-                    id="password"
-                    placeholder="Contraseña"
-                    value={form.password}
-                    onChange={handleChange}
-                    required
-                    />
-                </div>
+            <span>Contraseña <FaLock className="icon" /></span>
+            <div className="input-box">
+              <input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Contraseña"
+                value={form.password}
+                onChange={handleChange}
+                required
+              />
             </div>
-            
+          </div>
           <button type="submit">Iniciar Sesión</button>
-
           {message && <p className="text-message">{message}</p>}
           <div className="register-link">
-            <p>
-              ¿No tienes una cuenta?{' '}
+            <p>¿No tienes una cuenta?{' '}
               <Link to="/register" className="register-link-text">
                 Crear cuenta
               </Link>
             </p>
-          </div>  
+          </div>
         </form>
       </div>
     </div>
@@ -86,3 +88,4 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
+
