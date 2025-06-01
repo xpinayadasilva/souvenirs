@@ -2,9 +2,9 @@ import { handleError } from "../utilities/handleError.js";
 
 export const verifyDataUser = (req, res, next) => {
     try {
-      const { name, email, password } = req.body;
+      const {  email, password } = req.body;
       if (!name || !email || !password) {
-        throw { code: 400, message: 'Faltan datos de nombre, email o password' };
+        throw { code: 400, message: 'Faltan datos de email o password' };
       }
   
       const isEmailValid = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(email);

@@ -36,14 +36,14 @@ const getUser = async (req, res) => {
 
 const newUser = async (req, res) => {
   try {
-    const { name, email, phone, region, commune } = req.body;
+    const { email, password } = req.body;
 
     const checkEmail = await usersModel.checkEmailUser(email)
     if (checkEmail) {
       throw { code: 400, message: `El email ${email} ya se encuentra registrado.` };
     }
 
-    const result = await usersModel.newUser( name, email, phone, region, commune );
+    const result = await usersModel.newUser(  email, password );
     if (!result) {
       throw { code: 400, message: 'Registro de usuario fallido.' };
     }
@@ -58,13 +58,13 @@ const newUser = async (req, res) => {
 const updateUser = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, email, phone, region, commune } = req.body;
+    const {  email, password } = req.body;
 
     if (!id) {
       throw { code: 400, message: 'El usuario no fue proporcionado.' };
     }
 
-    const result = await usersModel.updateUser(id, name, email, phone, region, commune);
+    const result = await usersModel.updateUser(id, email, password);
     if (!result) {
       throw { code: 400, message: 'Actualización de usuario fallida.' };
     }

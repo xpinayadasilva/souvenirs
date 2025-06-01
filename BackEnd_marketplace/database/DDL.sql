@@ -8,8 +8,8 @@ CREATE TABLE IF NOT EXISTS users (
   password VARCHAR(100) NOT NULL
 );
 
-INSERT INTO users (name, email, password)
+INSERT INTO users ( email, password)
 VALUES
-  ('Ximena', 'ximena@gmail.com', 'ximena'),
-  ('Leidy', 'leidy@gmail.com', 'leidy'),
-  ('Diego', 'diego@gmail.com', 'diego');
+  ( 'ximena@gmail.com', 'ximena'),
+  ( 'leidy@gmail.com', 'leidy'),
+  ( 'diego@gmail.com', 'diego');

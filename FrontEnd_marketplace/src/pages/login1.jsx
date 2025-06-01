@@ -7,9 +7,8 @@ const URL_SERVER = 'http://localhost:5000';
 
 const LoginPage = () => {
   const [isLogin, setIsLogin] = useState(true);
-  const [form, setForm] = useState({ email: '', password: '' });
+  const [form, setForm] = useState({ name: '', email: '', password: '' });
   const [message, setMessage] = useState('');
-  const [users, setUsers] = useState([]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -26,15 +25,13 @@ const LoginPage = () => {
           email: form.email,
           password: form.password,
         });
-        setMessage(`Bienvenido, ${res.data.name || 'usuario'}`);
+        setMessage(`Bienvenido, ${res.data.name}`);
+        // Aquí podrías guardar el token en localStorage si usas JWT
       } else {
-        // Registro sin 'name'
-        const res = await axios.post(`${URL_SERVER}/users`, {
-          email: form.email,
-          password: form.password,
-        });
-        setMessage(`Usuario registrado con éxito`);
-        setForm({ email: '', password: '' });
+        // Registro
+        const res = await axios.post(`${URL_SERVER}/users`, form);
+        setMessage(`Usuario ${res.data.name} creado con éxito`);
+        setForm({ name: '', email: '', password: '' });
         setIsLogin(true); // Cambiar a modo login
       }
     } catch (error) {
@@ -43,31 +40,33 @@ const LoginPage = () => {
     }
   };
 
-  const fetchUsers = async () => {
-    try {
-      const res = await axios.get(`${URL_SERVER}/users`);
-      setUsers(res.data);
-    } catch (error) {
-      console.error('Error al cargar usuarios:', error);
-    }
-  };
-
-  useEffect(() => {
-    fetchUsers();
-  }, []);
-
   return (
     <div className='wrapper'>
       <div className='form-box login'>
         <form onSubmit={handleSubmit}>
           <h1>{isLogin ? 'Iniciar Sesión' : 'Registrarse'}</h1>
 
-          <label htmlFor="email">Correo Electrónico <FaUser className='icon' /></label>
+          {!isLogin && (
+            <>
+              <label>Nombre <FaUser className='icon' /></label>
+              <div className='input-box'>
+                <input
+                  type='text'
+                  name='name'
+                  placeholder='Tu nombre'
+                  value={form.name}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            </>
+          )}
+
+          <label>Correo Electrónico <FaUser className='icon' /></label>
           <div className='input-box'>
             <input
               type='email'
               name='email'
-              id='email'
               placeholder='Correo Electrónico'
               value={form.email}
               onChange={handleChange}
@@ -75,12 +74,11 @@ const LoginPage = () => {
             />
           </div>
 
-          <label htmlFor="password">Contraseña <FaLock className='icon' /></label>
+          <label>Contraseña <FaLock className='icon' /></label>
           <div className='input-box'>
             <input
               type='password'
               name='password'
-              id='password'
               placeholder='Contraseña'
               value={form.password}
               onChange={handleChange}
@@ -88,23 +86,14 @@ const LoginPage = () => {
             />
           </div>
 
-          <button type="submit">
-            {isLogin ? 'Iniciar Sesión' : 'Crear Cuenta'}
-          </button>
+          <button type="submit">{isLogin ? 'Iniciar Sesión' : 'Crear Cuenta'}</button>
 
           <div className="register-link">
-            <p>{isLogin ? '¿No tienes una cuenta?' : '¿Ya tienes una cuenta?'}
+            <p>{isLogin ? 'No tienes una cuenta?' : 'Ya tienes cuenta?'}
               <button
                 type="button"
                 onClick={() => setIsLogin(!isLogin)}
-                style={{
-                  marginLeft: '10px',
-                  textDecoration: 'underline',
-                  color: 'blue',
-                  background: 'none',
-                  border: 'none',
-                  cursor: 'pointer'
-                }}
+                style={{ marginLeft: '10px', textDecoration: 'underline', color: 'blue', background: 'none', border: 'none', cursor: 'pointer' }}
               >
                 {isLogin ? 'Registrarse' : 'Iniciar sesión'}
               </button>
