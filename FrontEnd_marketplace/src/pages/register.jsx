@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import '../assets/css/LoginRegister.css';
+import { Link } from 'react-router-dom';
 
 const Register = () => {
   const [form, setForm] = useState({
@@ -36,7 +37,7 @@ const Register = () => {
         {/* <img src="/assets/img/login-image.jpg" alt="Login" className="login-image" /> */}
       </div>
       <div className="login-right">
-        <h2>Registrarse</h2>
+        <h1>Crear Cuenta</h1>
         <form onSubmit={handleSubmit} className="login-form">
           <div>
             <label htmlFor="nombre" className="input-group">Nombre</label>
@@ -108,6 +109,14 @@ const Register = () => {
             />
           </div>
           <button type="submit">Registrarse</button>
+          <div className="register-link">
+            <p>
+              ¿Ya tienes una cuenta?{' '}
+              <Link to="/login" className="register-link-text">
+                Iniciar Sesion
+              </Link>
+            </p>
+          </div>
         </form>
         {message && <p className="text-message">{message}</p>}
       </div>

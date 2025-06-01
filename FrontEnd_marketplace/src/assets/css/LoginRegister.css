@@ -163,7 +163,7 @@ body {
 } */
 .login-right {
   flex: 2; /* Ocupa el 66.67% del ancho */  
-  justify-content: center;
+  justify-content:stretch;
   align-items: center;
   background: transparent;
   padding: 20px;
@@ -178,7 +178,7 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 .login-form h1 {
-  font-size: 24px;
+  font-size: 14px;
   text-align: center;
   margin-bottom: 20px;
 }
@@ -188,23 +188,25 @@ body {
   flex-direction: column;
   gap: 0px;
   width: 100%;
-  
+  height:auto;
 }
 
 .input-group label {  
   margin-bottom: 0;
   font-weight: 500;
+  font-size: small;
 }
 
 .input-box {
   position: relative;
   width: 100%;
-  height: 50px;
+  height: 40px;
   background: white;
-  padding: 10px;
-  margin: 10px 0;
+ /*  padding: 10px;
+*/  margin: 5px 0; 
   border-radius: 10px;
-  border: 1.5px solid #ccc;
+  border: 2px solid lightgray;
+  font-size: small;
 }
 
 .input-box input {
