@@ -22,7 +22,7 @@ const LoginPage = () => {
     try {
       if (isLogin) {
         // Login
-        const res = await axios.post(`${URL_SERVER}/auth/login`, {
+        const res = await axios.post(`${URL_SERVER}/login`, {
           email: form.email,
           password: form.password,
         });
