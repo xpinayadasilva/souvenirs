@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import '../assets/css/LoginRegister.css';
 
 const Register = () => {
   const [form, setForm] = useState({
@@ -30,12 +31,15 @@ const Register = () => {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-100">
-      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-lg">
-        <h2 className="text-2xl font-bold text-center text-gray-700">Registrarse</h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
+    <div className="login-container">
+        <div className="login-left">
+        {/* <img src="/assets/img/login-image.jpg" alt="Login" className="login-image" /> */}
+      </div>
+      <div className="login-right">
+        <h2>Registrarse</h2>
+        <form onSubmit={handleSubmit} className="login-form">
           <div>
-            <label htmlFor="nombre" className="block text-sm font-medium text-gray-600">Nombre</label>
+            <label htmlFor="nombre" className="input-group">Nombre</label>
             <input
               type="text"
               id="nombre"
@@ -43,11 +47,11 @@ const Register = () => {
               value={form.nombre}
               onChange={handleChange}
               required
-              className="w-full p-2 mt-1 border border-gray-300 rounded-md"
+              className="input-box"
             />
           </div>
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-600">Correo Electrónico</label>
+            <label htmlFor="email" className="input-group">Correo Electrónico</label>
             <input
               type="email"
               id="email"
@@ -55,44 +59,44 @@ const Register = () => {
               value={form.email}
               onChange={handleChange}
               required
-              className="w-full p-2 mt-1 border border-gray-300 rounded-md"
+              className="input-box"
             />
           </div>
           <div>
-            <label htmlFor="pais" className="block text-sm font-medium text-gray-600">País</label>
+            <label htmlFor="pais" className="input-group">País</label>
             <input
               type="text"
               id="pais"
               name="pais"
               value={form.pais}
               onChange={handleChange}
-              className="w-full p-2 mt-1 border border-gray-300 rounded-md"
+              className="input-box"
             />
           </div>
           <div>
-            <label htmlFor="telefono" className="block text-sm font-medium text-gray-600">Teléfono</label>
+            <label htmlFor="telefono" className="input-group">Teléfono</label>
             <input
               type="text"
               id="telefono"
               name="telefono"
               value={form.telefono}
               onChange={handleChange}
-              className="w-full p-2 mt-1 border border-gray-300 rounded-md"
+              className="input-box"
             />
           </div>
           <div>
-            <label htmlFor="direccion" className="block text-sm font-medium text-gray-600">Dirección</label>
+            <label htmlFor="direccion" className="input-group">Dirección</label>
             <input
               type="text"
               id="direccion"
               name="direccion"
               value={form.direccion}
               onChange={handleChange}
-              className="w-full p-2 mt-1 border border-gray-300 rounded-md"
+              className="input-box"
             />
           </div>
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-600">Contraseña</label>
+            <label htmlFor="password" className="input-group">Contraseña</label>
             <input
               type="password"
               id="password"
@@ -100,12 +104,12 @@ const Register = () => {
               value={form.password}
               onChange={handleChange}
               required
-              className="w-full p-2 mt-1 border border-gray-300 rounded-md"
+              className="input-box"
             />
           </div>
-          <button type="submit" className="w-full py-2 mt-4 bg-blue-600 text-white rounded-md hover:bg-blue-700">Registrarse</button>
+          <button type="submit">Registrarse</button>
         </form>
-        {message && <p className="mt-4 text-center text-sm text-gray-600">{message}</p>}
+        {message && <p className="text-message">{message}</p>}
       </div>
     </div>
   );
